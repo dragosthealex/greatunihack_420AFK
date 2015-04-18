@@ -2,18 +2,20 @@
 require_once 'GeneralUser.php';
 class CurrentUser extends GeneralUser
 {
+  const TYPE = 0;
+
   public function __construct($con, $action, $params)
   {
     try
     {
       if($action == 'insert')
       {
-        $username = isset($params['username'])?$params['username']:'';
-        $password = isset($params['password'])?$params['password']:'';
-        $salt = isset($params['salt'])?$params['salt']:'';
-        $firstName = isset($params['firstName'])?$params['firstName']:'';
-        $lastName = isset($params['lastName'])?$params['lastName']:'';
-        $email = isset($params['email'])?$params['email']:'';
+        $username = isset($params['username'])?htmlentities($params['username']):'';
+        $password = isset($params['password'])?htmlentities($params['password']):'';
+        $salt = isset($params['salt'])?htmlentities($params['salt']):'';
+        $firstName = isset($params['firstName'])?htmlentities($params['firstName']):'';
+        $lastName = isset($params['lastName'])?htmlentities($params['lastName']):'';
+        $email = isset($params['email'])?htmlentities($params['email']):'';
         $date = date('Y-m-d');
 
         $stmt = $con->prepare("INSERT INTO users (username, email, firstName, lastName, password, salt, registerDate) VALUES ('$username', '$email', '$firstName', '$lastName', '$password', '$salt', '$date')");

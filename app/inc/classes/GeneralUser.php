@@ -2,6 +2,7 @@
 require_once 'Base.php';
 abstract class GeneralUser extends Base
 {
+  const TYPE = 1;
   protected $credentials;
 
   public function getCredential($key)
